@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/mitgliedsantrag.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="mitgliedsantrag-container">
+  <h2>Mitgliedsantrag</h2>
+  <p>Bitte füllen Sie das folgende Formular aus, um Mitglied zu werden.</p>
+
+  <form method="post" enctype="multipart/form-data" id="mitgliedsantrag-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mitgliedsantrag-field">
+      {{ form.name.label_tag }}
+      {{ form.name }}
+    </div>
+
+    <div class="mitgliedsantrag-field">
+      {{ form.adresse.label_tag }}
+      {{ form.adresse }}
+    </div>
+
+    <div class="mitgliedsantrag-field">
+      {{ form.mobilnummer.label_tag }}
+      {{ form.mobilnummer }}
+    </div>
+
+    <div class="mitgliedsantrag-field checkbox-field">
+      <input type="checkbox" id="abweichenderKontoinhaberCheckbox">
+      <label for="abweichenderKontoinhaberCheckbox">Abweichender Kontoinhaber</label>
+    </div>
+
+    <div class="mitgliedsantrag-field">
+      {{ form.kontoinhaber.label_tag }}
+      {{ form.kontoinhaber }}
+    </div>
+
+    <div class="mitgliedsantrag-field">
+      {{ form.iban.label_tag }}
+      {{ form.iban }}
+    </div>
+
+    <div class="mitgliedsantrag-field">
+      {{ form.bic.label_tag }}
+      {{ form.bic }}
+    </div>
+
+    <div class="mitgliedsantrag-field">
+      <label for="id_beitrag">Monatlicher Beitrag:</label>
+      <select name="beitrag" id="id_beitrag" required>
+        <option value="5">5 €</option>
+        <option value="10">10 €</option>
+        <option value="15">15 €</option>
+        <option value="20">20 €</option>
+        <option value="25">25 €</option>
+        <option value="30">30 €</option>
+        <option value="35">35 €</option>
+        <option value="40">40 €</option>
+        <option value="45">45 €</option>
+        <option value="50">50 €</option>
+      </select>
+    </div>
+
+    <div class="mitgliedsantrag-field">
+      {{ form.zahlungstermin.label_tag }}
+      {{ form.zahlungstermin }}
+    </div>
+
+    <div class="mitgliedsantrag-field">
+      <h4>Digitale Unterschrift Antragsteller</h4>
+      <canvas id="signature-pad" width="350" height="150"></canvas>
+      <button type="button" id="clearSignature">Unterschrift löschen</button>
+      <input type="hidden" name="unterschrift_data" id="unterschrift_data">
+    </div>
+
+    <div class="mitgliedsantrag-field" id="zweite-unterschrift-container" style="display: none;">
+      <h4>Digitale Unterschrift Kontoinhaber</h4>
+      <canvas id="signature-pad-2" width="350" height="150"></canvas>
+      <button type="button" id="clearSignature2">Unterschrift löschen</button>
+      <input type="hidden" name="unterschrift_data_2" id="unterschrift_data_2">
+    </div>
+
+    <!-- Angepasste Checkboxen -->
+    <div class="mitgliedsantrag-field checkbox-field">
+      <input type="checkbox" id="zustimmung">
+      <label for="zustimmung">
+        Ich stimme zu, dass die oben angegebenen Daten gemäß der 
+        <a href="#" id="datenschutzLink">Datenschutzerklärung</a> in das 
+        <a href="#" id="pdfLink">PDF</a> eingefügt und vom Verein zur weiteren Verarbeitung genutzt werden dürfen.
+      </label>
+    </div>
+
+    <div class="mitgliedsantrag-field checkbox-field">
+      <input type="checkbox" id="ueber18">
+      <label for="ueber18">Ich versichere, dass ich zum Zeitpunkt der Antragstellung mindestens 18 Jahre alt bin und somit geschäftsfähig bin.</label>
+    </div>
+
+    <div class="mitgliedsantrag-field checkbox-field">
+      <input type="checkbox" id="angaben">
+      <label for="angaben">Ich bestätige, dass alle von mir gemachten Angaben wahrheitsgemäß, vollständig und korrekt sind.</label>
+    </div>
+
+    <div class="mitgliedsantrag-submit">
+      <button type="submit" id="submitBtn" disabled>Mitgliedsantrag absenden</button>
+    </div>
+  </form>
+</div>
+
+<!-- Modals für PDF und Datenschutzerklärung -->
+<div id="datenschutzModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeDatenschutz">&times;</span>
+    <h4>Datenschutzerklärung</h4>
+    <p>
+      Mir ist bekannt, dass in der Mitgliederversammlung stimm-, rede-, anwesenheits- und wahlberechtigt ordentlichen Mitglieder der Gemeinde sind, die am Wahltag das 18. 
+      Lebensjahr vollendet haben, im Gemeinderegister eingetragen, seit mindestens 12 Monaten Mitglied der Gemeinde und mit der Entrichtung der Mitgliedsbeiträge nicht im 
+      Rückstand sind. Mit meiner Mitgliedschaft erkenne ich meine Mitgliedschaften bei den nachfolgenden Dachverbänden an und erken ne weiter durch meinen Beitritt die 
+      Satzungen und Ordnungen der Dachverbände als verbindlich an.  
+      Türkisch Islamische Union der Anstalt für Religion e.V. (DITIB), Venloer Str. 160, 50823 Köln (Meine Mitgliedschaftsrechte beim Bundesverband nehme ich über den 
+      Vorsitzenden des Landesverbandes wahr).  
+      DITIB Landesverband Südbayern e.V. (Meine Mitgliedschaftsrechte beim Landesverband nehme ich über den oder die Delegierten der Gemeinden wahr).   
+    </p>  
+    <p>
+      Mir ist der Inhalt der Beitragsordnung bekannt. Ich erkläre mich zur Zahlung eines regelmäßigen Beitrages sowie von Umlagen u nd Gebühren, die in einer von der 
+      Mitgliederversammlung beschlossenen Beitragsordnung bestimmt sind, bereit.  
+    </p>
+      <p>
+      Cemiyet genel kurulunda; genel kurul tarihinde 18 yaşını doldurmuş, Cemaat Kütüğü’ne kayıt olmuş, en az 12 aydır üye olan ve aidat borcu bulunmayan her asil üyenin, 
+      seçme, konuşma, bulunma ve seçilme hakkının olduğunu kabul ediyorum. Cemiyete üye olmakla, aynı zamanda aşağıda adları geçen çatı kuruluşlara da üye olduğumu 
+      ve böylelikle çatı kuruluşların tüzük ve yönetmeliklerini de kabul ettiğimi beyan ederim.  
+      Almanya Diyanet İşleri Türk İslam Birliği (DİTİB), Venloer Str. 160, 50823 Köln (Federal Birlik’teki üyelik haklarımı Eyalet Birliği yönetim kurulu üyeleri aracılığıyla 
+      kullanmaktayım).  
+    </p>
+    <p>
+      DİTİB Südbayern Eyalet Birliği ( Eyalet Birliğindeki üyelik haklarımı cemiyet veya cemiyet delegeleri aracılığıyla kullanmaktayım).  
+      Aidat Yönetmeliği’nin içeriğini bilmekteyim. Aidatlarımı ve ayrıca genel kurul tarafından miktarları belirlenerek aidat yönetmeliğine kaydedilen üyelik ücretleri ve masraf 
+      harçlarını düzenli olarak ödeyeceğimi taahhüt ederim. 
+    </p>   
+    <p> 
+      Gläubiger-Identifikationsnummer DE31ZZZ00001739591  
+      SEPA-Lastschriftmandat Mandantsreferenz Mitgliedsbeitrag  
+      Ich ermächtige den Verein DITIB Türkisch Islamische Gemeinde zu Gersthofen e.V von meinem Konto mittels Lastschrift einzuzieh en. Zugleich weise mein Kreditinstitut 
+      an, die vom Verein DITIB Türkisch Islamische Gemeinde zu Gersthofen e. V. auf mein Konto gez ogenen Lastschriften einzulösen.  
+      Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem Belastungsdatum, die Erstattung des belasteten Betrages verlangen. Es g elten die mit meinem 
+      Kreditinstitut vereinbarten Bedingungen.
+    </p>
+  </div>
+</div>
+
+<div id="pdfModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closePdf">&times;</span>
+    <h4>PDF Vorschau</h4>
+    <iframe src="{% static 'pdf/Mitgliedsantrag_Neu_2024.pdf' %}" width="100%" height="500px"></iframe>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.4/dist/signature_pad.umd.min.js"></script>
+<script>
+  // Bestehender Code für SignaturePads
+  function resizeCanvas(canvas) {
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    canvas.getContext("2d").scale(ratio, ratio);
+  }
+
+  const canvas = document.getElementById('signature-pad');
+  const signaturePad = new SignaturePad(canvas);
+  resizeCanvas(canvas);
+
+  const zweiteUnterschrift = document.getElementById('zweite-unterschrift-container');
+  const abweichendCheckbox = document.getElementById('abweichenderKontoinhaberCheckbox');
+  const kontoinhaberField = document.getElementById('id_kontoinhaber');
+  const nameField = document.getElementById('id_name');
+
+  let signaturePad2 = null;
+
+  function updateKontoinhaber() {
+    if (!abweichendCheckbox.checked) {
+      kontoinhaberField.value = nameField.value;
+      kontoinhaberField.readOnly = true;
+      zweiteUnterschrift.style.display = 'none';
+    } else {
+      kontoinhaberField.readOnly = false;
+      kontoinhaberField.value = '';
+      zweiteUnterschrift.style.display = 'block';
+
+      const canvas2 = document.getElementById('signature-pad-2');
+      if (!signaturePad2) {
+        signaturePad2 = new SignaturePad(canvas2);
+      }
+      resizeCanvas(canvas2);
+      signaturePad2.clear();
+    }
+  }
+
+  abweichendCheckbox.addEventListener('change', updateKontoinhaber);
+  nameField.addEventListener('input', () => {
+    if (!abweichendCheckbox.checked) kontoinhaberField.value = nameField.value;
+  });
+  document.addEventListener('DOMContentLoaded', updateKontoinhaber);
+
+  window.addEventListener("resize", () => {
+    resizeCanvas(canvas);
+    if (zweiteUnterschrift.style.display !== "none" && signaturePad2) {
+      resizeCanvas(document.getElementById('signature-pad-2'));
+    }
+  });
+
+  document.getElementById('clearSignature').addEventListener('click', () => signaturePad.clear());
+  document.getElementById('clearSignature2').addEventListener('click', () => signaturePad2 && signaturePad2.clear());
+  document.getElementById('mitgliedsantrag-form').addEventListener('submit', function (e) {
+    if (!signaturePad.isEmpty()) document.getElementById('unterschrift_data').value = signaturePad.toDataURL();
+    if (signaturePad2 && !signaturePad2.isEmpty()) document.getElementById('unterschrift_data_2').value = signaturePad2.toDataURL();
+  });
+
+  const zustimmung = document.getElementById('zustimmung');
+  const ueber18 = document.getElementById('ueber18');
+  const angaben = document.getElementById('angaben');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function toggleSubmit() {
+    submitBtn.disabled = !(zustimmung.checked && ueber18.checked && angaben.checked);
+  }
+  zustimmung.addEventListener('change', toggleSubmit);
+  ueber18.addEventListener('change', toggleSubmit);
+  angaben.addEventListener('change', toggleSubmit);
+
+  // Popups für PDF und Datenschutzerklärung
+  const datenschutzModal = document.getElementById('datenschutzModal');
+  const datenschutzLink = document.getElementById('datenschutzLink');
+  const closeDatenschutz = document.getElementById('closeDatenschutz');
+  datenschutzLink.onclick = function(e) {
+    e.preventDefault();
+    datenschutzModal.style.display = "block";
+  }
+  closeDatenschutz.onclick = function() {
+    datenschutzModal.style.display = "none";
+  }
+
+  const pdfModal = document.getElementById('pdfModal');
+  const pdfLink = document.getElementById('pdfLink');
+  const closePdf = document.getElementById('closePdf');
+  pdfLink.onclick = function(e) {
+    e.preventDefault();
+    pdfModal.style.display = "block";
+  }
+  closePdf.onclick = function() {
+    pdfModal.style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    if (event.target == datenschutzModal) datenschutzModal.style.display = "none";
+    if (event.target == pdfModal) pdfModal.style.display = "none";
+  }
+</script>
+{% endblock %}

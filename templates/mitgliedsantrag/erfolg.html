@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'mitgliedsantrag/mitgliedsantrag.css' %}">
+
+<div class="mitgliedsantrag-erfolg-box">
+  <h2 class="mitgliedsantrag-titel">Vielen Dank für Ihren Antrag!</h2>
+  <p class="mitgliedsantrag-hinweis">Ihr Antrag wurde erfolgreich eingereicht und verarbeitet.</p>
+
+  {% if pdf_url %}
+    <a href="{{ pdf_url }}" class="btn-download" download>PDF herunterladen</a>
+  {% else %}
+    <p>Das PDF konnte nicht automatisch erstellt werden.</p>
+  {% endif %}
+
+  <div class="mitgliedsantrag-zurueck">
+    <a href="{% url 'mitgliedsantrag' %}" class="btn-zurueck">Neuen Antrag ausfüllen</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="welcome-section">
+    <div class="welcome-text">
+        <h1>Willkommen in der Eyüp Sultan Moschee Gersthofen</h1>
+        <p>Unsere Moschee steht für Gemeinschaft, Frieden und spirituelles Wachstum. Wir laden alle herzlich ein, Teil unserer Familie zu sein.</p>
+    </div>
+</section>
+
+<section class="quran-section">
+    <blockquote>
+        "Wer ein Gut spendet, sei es auch nur so klein wie ein Senfkorn, wird es bei Allah vervielfacht finden." <br> 
+        <span>(Sure Al-Baqara 2:261)</span>
+    </blockquote>
+</section>
+
+<section class="donation-section">
+    <div class="donation-box">
+        <h2>Unterstütze unsere Gemeinde</h2>
+        <a href="https://www.paypal.com/donate/example-link" class="donate-button" target="_blank">Jetzt Spenden</a>
+    </div>
+</section>
+
+<section class="news-section">
+    <h2>Neuigkeiten</h2>
+    <div class="news-container">
+        {% for neuigkeit in neuigkeiten %}
+            <div class="news-card">
+                {% if neuigkeit.bild %}
+                    <img src="{{ neuigkeit.bild.url }}" alt="Bild zur Neuigkeit">
+                {% endif %}
+                <h3>{{ neuigkeit.titel }}</h3>
+                <p>{{ neuigkeit.inhalt|truncatewords:30 }}</p>
+                <small>Veröffentlicht am {{ neuigkeit.erstellt_am|date:"d.m.Y" }}</small>
+            </div>
+        {% empty %}
+            <p>Momentan gibt es keine Neuigkeiten.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

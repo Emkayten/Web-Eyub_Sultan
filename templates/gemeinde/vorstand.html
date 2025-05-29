@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="vorstand-wrapper">
+  <h2>Unser Vorstand</h2>
+  <p class="vorstand-einleitung">
+    Lernen Sie die Menschen kennen, die sich engagiert für die Belange unserer Gemeinde einsetzen und mit Herz und Verantwortung unsere Moschee leiten.
+  </p>
+  {% for rollenname, mitglieder in gruppen.items %}
+    {% if mitglieder %}
+      <h3 class="rollen-titel">
+        {% if rollenname == 'leiter' %}Leitung{% elif rollenname == 'verwaltung' %}Verwaltung{% else %}Vorstand{% endif %}
+      </h3>
+
+      <div class="vorstand-grid">
+        {% for person in mitglieder %}
+          <div class="vorstand-karte">
+            <div class="bild-wrapper">
+              <img src="{{ person.bild_url }}" alt="{{ person.name }}">
+            </div>
+            <div class="text-wrapper">
+              <h4>{{ person.name }}</h4>
+              <p>{{ person.aufgabe }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

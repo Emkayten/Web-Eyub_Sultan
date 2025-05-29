@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyüp Sultan Moschee Gersthofen</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="/">Eyüp Sultan Moschee</a>
+            </div>
+            
+            <button class="burger" id="burger">
+                &#9776;
+            </button>
+    
+            <nav id="nav-menu" class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="/">Startseite</a></li>
+                    <li class="dropdown">
+                        <a href="#">Gemeinde ▾</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/gemeinde/vorstand/">Unser Vorstand</a></li>
+                            <li><a href="/beauftragte">Unsere Beauftragten</a></li>
+                            <li><a href="/mitgliedsantrag">Mitgliedsbereich</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/fuehrung/anmeldung">Moscheeführung-Anmeldung</a></li>
+                    <li><a href="/kontakt">Kontakt</a></li>
+                    <li><a href="/downloads">Downloads</a></li>
+                    <li><a href="/impressum">Impressum</a></li>
+                    <li><a href="/accounts/login/">Login</a></li>
+                </ul>
+                <div class="language-switcher">
+                    <a href="#">DE</a> | 
+                    <a href="#">TR</a> | 
+                    <a href="#">EN</a> | 
+                    <a href="#">AR</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 Eyüp Sultan Moschee Gersthofen</p>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-center">
+        <div class="footer-title">Eyüp Sultan Moschee Gersthofen</div>
+        <div class="footer-links">
+          <a href="/kontakt">Kontakt</a>
+          <a href="/impressum">Impressum</a>
+          <a href="/downloads">Downloads</a>
+        </div>
+        <div class="footer-copy">© DITIB – Alle Rechte vorbehalten</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.youtube.com/@DitibJugendGersthofen" target="_blank" rel="noopener" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.instagram.com/ditib_jugend_gersthofen/" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+  
+  
+  
+  
+</html>

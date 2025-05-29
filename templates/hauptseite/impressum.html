@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Impressum{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/impressum.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="impressum-container">
+    <h1>Impressum</h1>
+    <p>Angaben gemäß § 5 TMG ...</p>
+    <!-- Hier kannst du deine Impressum-Daten einfügen -->
+</div>
+{% endblock %}

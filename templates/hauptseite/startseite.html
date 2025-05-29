@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/startseite.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="startseite-content">
+
+<!-- HERO-BEREICH -->
+<section class="startseite-hero">
+  <div class="startseite-hero-content">
+    <h1>Willkommen in der Eyüp Sultan Moschee Gersthofen</h1>
+    <p>Unsere Moschee steht für Gemeinschaft, Frieden und spirituelles Wachstum.</p>
+    <a href="https://www.paypal.com/de/home" class="startseite-cta-button">Jetzt spenden</a>
+  </div>
+  <div class="startseite-hero-image">
+    <img src="{% static 'images/hero.png' %}" alt="Eyüp Sultan Moschee Gersthofen">
+  </div>
+</section>
+
+
+
+ <!-- ZEITSTRAHL -->
+<section class="startseite-timeline">
+  <h2>Unsere Geschichte</h2>
+  <div class="timeline-container">
+    <div class="timeline-item">
+      <div class="timeline-img">
+        <img src="{% static 'images/timeline1.jpg' %}" alt="1986">
+      </div>
+      <div class="timeline-content">
+        <h3>1986</h3>
+        <p>Vereinsgründung, Bauerstr. Gersthofen</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-img">
+        <img src="{% static 'images/timeline2.jpg' %}" alt="1995">
+      </div>
+      <div class="timeline-content">
+        <h3>1995</h3>
+        <p>Neue Vereinsstätte mit Erwerb eines Grundstücks</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-img">
+        <img src="{% static 'images/timeline3.jpg' %}" alt="2006">
+      </div>
+      <div class="timeline-content">
+        <h3>2006</h3>
+        <p>Neubau der Moschee</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-img">
+        <img src="{% static 'images/timeline4.jpg' %}" alt="2018">
+      </div>
+      <div class="timeline-content">
+        <h3>2018</h3>
+        <p>Neubau der Bildungsstätte</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-img">
+        <img src="{% static 'images/timeline5.jpg' %}" alt="Heute">
+      </div>
+      <div class="timeline-content">
+        <h3>Heute</h3>
+        <p>Wachsende Gemeinde mit über 400 Mitgliedern</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- NEUIGKEITEN-BEREICH -->
+<section class="startseite-blog">
+  <h2>Neuigkeiten</h2>
+  <div class="startseite-blog-slider">
+    {% for neuigkeit in neuigkeiten %}
+      <div class="startseite-blog-card">
+        {% if neuigkeit.bild %}
+          <img src="{{ neuigkeit.bild.url }}" alt="{{ neuigkeit.titel }}">
+        {% endif %}
+        <h3>{{ neuigkeit.titel }}</h3>
+        <p>{{ neuigkeit.inhalt|truncatewords:15}}</p>
+        
+      </div>
+    {% empty %}
+      <p>Keine Neuigkeiten vorhanden.</p>
+    {% endfor %}
+  </div>
+</section>
+
+
+
+
+
+
+<!-- KURSE -->
+<section class="startseite-kurse">
+  <h2>Kurse</h2>
+  <ul>
+    <li>Kindermoschee (Kindergartenalter)</li>
+    <li>Kuran- und Islamunterrichtskurs</li>
+    <li>Kuran lesen für Erwachsene und Jugendliche</li>
+    <li>Makam Kurse für Jugendliche</li>
+    <li>Hafız Unterricht für Jugendliche</li>
+    <li>Arabisch Kurs für Männer</li>
+    <li>Reue Programm</li>
+  </ul>
+  <p class="startseite-spendenhinweis">Bitte beachten Sie, dass bei einer Anmeldung zu den Kursen der Kinder am Wochenende eine Spende von mindestens 10 Euro gewünscht ist.</p>
+</section>
+
+<!-- JUGENDGRUPPEN -->
+<section class="startseite-jugendgruppen">
+  <h2>Jugendgruppen</h2>
+  <p>Die Jugendgruppen finden regelmäßige Treffen am Freitag zu einem islamischen Vortrag statt. Außerhalb der Treffen veranstaltet unser Jugendvorstand Grillen, Hallenspiele und Reisen.</p>
+  <a href="https://www.instagram.com/ditib_jugend_gersthofen/" target="_blank">Instagram</a>
+  <a href="https://www.youtube.com/@DitibJugendGersthofen" target="_blank">YouTube</a>
+</section>
+
+<!-- YOUTUBE VIDEO -->
+<section class="video-section">
+    <h2 class="section-title">Aktuelles Video</h2>
+    <div class="video-wrapper">
+      <iframe 
+        src="https://www.youtube.com/embed/ADteIh6lako" 
+        title="Aktuelles Video"
+        frameborder="0" 
+        allowfullscreen
+      ></iframe>
+    </div>
+  </section>
+
+
+</div>
+{% endblock %}

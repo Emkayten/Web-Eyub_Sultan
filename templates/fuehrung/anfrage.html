@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="fuehrung-form-container">
+    <h2 class="form-heading">Moscheeführung – Anmeldung</h2>
+    <p class="form-description">
+        Bitte füllen Sie das folgende Formular aus, um eine Führung anzumelden.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        {% for field in form %}
+            <div class="form-field">
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div class="form-error">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="form-button-wrapper">
+            <button type="submit" class="button-primary">Absenden</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

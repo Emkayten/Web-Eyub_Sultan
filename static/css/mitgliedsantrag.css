@@ -1,0 +1,153 @@
+/* Container für das gesamte Mitgliedsantrag-Formular */
+.mitgliedsantrag-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titel des Formulars */
+.mitgliedsantrag-container h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Allgemeines Styling für jedes Feld */
+.mitgliedsantrag-field {
+  margin-bottom: 1rem;
+}
+
+.mitgliedsantrag-field label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #333;
+}
+
+.mitgliedsantrag-field input[type="text"],
+.mitgliedsantrag-field input[type="tel"],
+.mitgliedsantrag-field input[type="email"],
+.mitgliedsantrag-field input[type="number"],
+.mitgliedsantrag-field select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.mitgliedsantrag-field select {
+  appearance: none;
+}
+
+/* Checkbox-Felder korrekt links ausgerichtet */
+.mitgliedsantrag-field.checkbox-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.mitgliedsantrag-field.checkbox-field input[type="checkbox"] {
+  margin: 0;
+}
+
+.mitgliedsantrag-field.checkbox-field label {
+  flex: initial;
+  margin: 0;
+  word-wrap: break-word;
+}
+
+/* Styling für den Signaturbereich */
+.mitgliedsantrag-field canvas {
+  width: 400px !important; /* Feste Breite */
+  height: 150px !important; /* Feste Höhe */
+  max-width: 400px !important; /* Keine dynamische Breite */
+  max-height: 150px !important;
+  border: 2px dashed #c49a6c;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  display: block; 
+}
+
+@media (max-width: 580px) {
+  .mitgliedsantrag-field canvas {
+  width: 300px !important; /* Feste Breite */
+  height: 150px !important; /* Feste Höhe */
+  max-width: 300px !important; /* Keine dynamische Breite */
+  max-height: 150px !important;
+  border: 2px dashed #c49a6c;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  display: block; 
+}
+}
+
+
+.mitgliedsantrag-field button {
+  display: block;
+  margin: 0.3rem auto;
+  padding: 0.3rem 0.6rem;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Submit-Button Styling */
+.mitgliedsantrag-submit {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.mitgliedsantrag-submit button {
+  background: #b38b6d;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.mitgliedsantrag-submit button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.mitgliedsantrag-submit button:hover:enabled {
+  background: #a07a5b;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 2rem auto;
+  padding: 1rem 1.5rem;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh; /* Anpassung: maximal 80% der Viewport-Höhe */
+  overflow-y: auto; /* Scrollbar einblenden, falls Inhalt länger als max-height */
+  box-sizing: border-box;
+}
+
+
+.close {
+  color: #aaa; float: right; font-size: 28px; font-weight: bold;
+  cursor: pointer;
+}
+.close:hover { color: #000; }
