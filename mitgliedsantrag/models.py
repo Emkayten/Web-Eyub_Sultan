@@ -19,6 +19,8 @@ class Mitgliedsantrag(models.Model):
 
     pdf_datei = models.FileField("PDF-Datei", upload_to='mitgliedsantrag/pdfs/')
     erstellt_am = models.DateTimeField("Erstellt am", auto_now_add=True)
+    bearbeitet = models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"Mitgliedsantrag von {self.name} am {self.erstellt_am.date()}"

@@ -1,0 +1,50 @@
+{% extends 'adminpanel/adminpanel_base.html' %}
+
+{% block admin_content %}
+<h1>Mitgliedsanträge Verwaltung</h1>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Mobilnummer</th>
+    <th>Erstellt am</th>
+    <th>PDF</th>
+    <th>Bearbeitet?</th>
+    <th>Aktionen</th>
+  </tr>
+  {% for a in antraege %}
+  <tr>
+    <td>{{ a.name }}</td>
+    <td>{{ a.mobilnummer }}</td>
+    <td>{{ a.erstellt_am|date:"d.m.Y H:i" }}</td>
+    <td>
+      {% if a.pdf_datei %}
+        <a href="{{ a.pdf_datei.url }}" target="_blank">PDF öffnen</a>
+      {% else %}
+        Kein PDF
+      {% endif %}
+    </td>
+    <td>{% if a.bearbeitet %}✔️{% else %}❌{% endif %}</td>
+    <td>
+      <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="mark_id" value="{{ a.id }}">
+        <button type="submit" class="btn btn-secondary">
+          {% if a.bearbeitet %}Als unbearbeitet markieren{% else %}Als bearbeitet markieren{% endif %}
+        </button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">Keine Mitgliedsanträge vorhanden.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

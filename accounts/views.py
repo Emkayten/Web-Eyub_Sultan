@@ -5,6 +5,8 @@ from django.utils import timezone
 from .forms import LoginForm
 from .models import UserProfile
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from accounts.models import UserProfile, Role
 
 def login_view(request):
     form = LoginForm(request.POST or None)
@@ -72,4 +74,23 @@ def startseite(request):
         'is_verwaltung': is_verwaltung,
         'is_media': is_media,
         'is_hoca': is_hoca,
+    })
+
+@login_required
+def benutzerverwaltung(request):
+    if not request.user.userprofile.roles.filter(name='admin').exists():
+        return render(request, '403.html')
+
+    profiles = UserProfile.objects.select_related('user').prefetch_related('roles').all()
+    roles = Role.objects.all()
+
+    if request.method == 'POST':
+        for profile in profiles:
+            rollen_ids = request.POST.getlist(f'roles_{profile.id}')
+            profile.roles.set(rollen_ids)
+        return redirect('admin_benutzerverwaltung')
+
+    return render(request, 'adminpanel/benutzerverwaltung.html', {
+        'profiles': profiles,
+        'roles': roles,
     })

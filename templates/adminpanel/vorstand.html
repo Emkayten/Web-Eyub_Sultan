@@ -1,0 +1,77 @@
+{% extends 'adminpanel/adminpanel_base.html' %}
+
+{% block admin_content %}
+<h1>Vorstandsverwaltung</h1>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<h2>Alle Mitglieder</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Aufgabe</th>
+    <th>Rolle</th>
+    <th>Geschlecht</th>
+    <th>Bild</th>
+    <th>Aktionen</th>
+  </tr>
+  {% for m in mitglieder %}
+  <tr>
+    <td>{{ m.name }}</td>
+    <td>{{ m.aufgabe|truncatewords:10 }}</td>
+    <td>{{ m.get_rolle_display }}</td>
+    <td>{{ m.get_geschlecht_display }}</td>
+    <td>
+      {% if m.bild %}
+        <a href="{{ m.bild.url }}" target="_blank">Bild öffnen</a>
+      {% else %}
+        Kein Bild
+      {% endif %}
+    </td>
+    <td>
+      <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="delete_id" value="{{ m.id }}">
+        <button type="submit" class="btn btn-secondary">Löschen</button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">Keine Mitglieder vorhanden.</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Neues Mitglied anlegen</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label>Name:</label>
+  <input type="text" name="name" required>
+
+  <label>Aufgabe:</label>
+  <input type="text" name="aufgabe" required>
+
+  <label>Rolle:</label>
+  <select name="rolle" required>
+    <option value="leiter">Leiter</option>
+    <option value="verwaltung">Verwaltung</option>
+    <option value="vorstand">Vorstand</option>
+  </select>
+
+  <label>Geschlecht:</label>
+  <select name="geschlecht" required>
+    <option value="maennlich">Männlich</option>
+    <option value="weiblich">Weiblich</option>
+  </select>
+
+  <label>Bild (optional):</label>
+  <input type="file" name="bild">
+
+  <button type="submit" class="btn btn-primary">Hinzufügen</button>
+</form>
+{% endblock %}

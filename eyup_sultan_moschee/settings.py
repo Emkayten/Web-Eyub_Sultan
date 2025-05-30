@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'mitgliedsantrag',
     'downloads',
     'accounts',
+    'adminpanel',
 
 ]
 

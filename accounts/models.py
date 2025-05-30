@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Role(models.Model):
     name = models.CharField(max_length=20, unique=True)
@@ -26,3 +28,9 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} – {', '.join(role.name for role in self.roles.all())}"
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            from .models import UserProfile
+            UserProfile.objects.create(user=instance)

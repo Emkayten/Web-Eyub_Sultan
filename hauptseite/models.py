@@ -16,6 +16,7 @@ class KontaktNachricht(models.Model):
     email = models.EmailField()
     nachricht = models.TextField()
     erstellt_am = models.DateTimeField(auto_now_add=True)
+    bearbeitet = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.name} ({self.email}) - {self.erstellt_am.strftime('%Y-%m-%d %H:%M')}"

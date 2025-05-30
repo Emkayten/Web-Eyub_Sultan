@@ -1,0 +1,88 @@
+{% extends 'adminpanel/adminpanel_base.html' %}
+
+{% block admin_content %}
+<h1>Kontaktverwaltung</h1>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Nachricht</th>
+    <th>Erstellt am</th>
+    <th>Bearbeitet?</th>
+    <th>Aktionen</th>
+  </tr>
+  {% for msg in nachrichten %}
+  <tr class="message-row"
+      data-name="{{ msg.name }}"
+      data-email="{{ msg.email }}"
+      data-message="{{ msg.nachricht|escapejs }}"
+      data-date="{{ msg.erstellt_am|date:'d.m.Y H:i' }}">
+    <td>{{ msg.name }}</td>
+    <td>{{ msg.email }}</td>
+    <td>{{ msg.nachricht|truncatewords:10 }}</td>
+    <td>{{ msg.erstellt_am|date:"d.m.Y H:i" }}</td>
+    <td>{% if msg.bearbeitet %}✔️{% else %}❌{% endif %}</td>
+    <td>
+      <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="mark_id" value="{{ msg.id }}">
+        <button type="submit" class="btn btn-secondary">
+          {% if msg.bearbeitet %}Als unbearbeitet markieren{% else %}Als bearbeitet markieren{% endif %}
+        </button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">Keine Nachrichten.</td></tr>
+  {% endfor %}
+</table>
+
+<!-- Modal für Nachricht-Details -->
+<div id="kontakt-detail-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close-kontakt-modal">&times;</span>
+    <h2>Nachricht-Details</h2>
+    <p><strong>Name:</strong> <span id="kontakt-modal-name"></span></p>
+    <p><strong>Email:</strong> <span id="kontakt-modal-email"></span></p>
+    <p><strong>Nachricht:</strong></p>
+    <p id="kontakt-modal-message"></p>
+    <p><strong>Erstellt am:</strong> <span id="kontakt-modal-date"></span></p>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const modal = document.getElementById("kontakt-detail-modal");
+  const closeBtn = modal.querySelector(".close-kontakt-modal");
+
+  document.querySelectorAll(".message-row").forEach(row => {
+    row.addEventListener("click", () => {
+      document.getElementById("kontakt-modal-name").textContent = row.dataset.name;
+      document.getElementById("kontakt-modal-email").textContent = row.dataset.email;
+      document.getElementById("kontakt-modal-message").textContent = row.dataset.message;
+      document.getElementById("kontakt-modal-date").textContent = row.dataset.date;
+      modal.style.display = "flex";
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target == modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+</script>
+{% endblock %}

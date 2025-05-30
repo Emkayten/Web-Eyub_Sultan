@@ -1,0 +1,108 @@
+{% extends 'adminpanel/adminpanel_base.html' %}
+
+{% block admin_content %}
+<h1>Moscheeführungen Verwaltung</h1>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<table>
+  <tr>
+    <th>Einrichtung</th>
+    <th>Ansprechperson</th>
+    <th>Email</th>
+    <th>Telefon</th>
+    <th>Teilnehmer</th>
+    <th>Wunschtermin</th>
+    <th>Nachricht</th>
+    <th>Erstellt am</th>
+    <th>Bearbeitet?</th>
+    <th>Aktionen</th>
+  </tr>
+  {% for f in fuehrungen %}
+  <tr class="fuehrung-row"
+      data-einrichtung="{{ f.einrichtung }}"
+      data-ansprechperson="{{ f.ansprechperson }}"
+      data-email="{{ f.email }}"
+      data-telefon="{{ f.telefon }}"
+      data-teilnehmer="{{ f.teilnehmerzahl }}"
+      data-termin="{{ f.wunschtermin }}"
+      data-nachricht="{{ f.nachricht|escapejs }}"
+      data-date="{{ f.erstellt_am|date:'d.m.Y H:i' }}">
+    <td>{{ f.einrichtung }}</td>
+    <td>{{ f.ansprechperson }}</td>
+    <td>{{ f.email }}</td>
+    <td>{{ f.telefon }}</td>
+    <td>{{ f.teilnehmerzahl }}</td>
+    <td>{{ f.wunschtermin }}</td>
+    <td>{{ f.nachricht|truncatewords:10 }}</td>
+    <td>{{ f.erstellt_am|date:"d.m.Y H:i" }}</td>
+    <td>{% if f.bearbeitet %}✔️{% else %}❌{% endif %}</td>
+    <td>
+      <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="mark_id" value="{{ f.id }}">
+        <button type="submit" class="btn btn-secondary">
+          {% if f.bearbeitet %}Als unbearbeitet markieren{% else %}Als bearbeitet markieren{% endif %}
+        </button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="10">Keine Führungsanfragen.</td></tr>
+  {% endfor %}
+</table>
+
+<!-- Modal für Führungsdetails -->
+<div id="fuehrung-detail-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close-fuehrung-modal">&times;</span>
+    <h2>Führungsdetails</h2>
+    <p><strong>Einrichtung:</strong> <span id="fuehrung-modal-einrichtung"></span></p>
+    <p><strong>Ansprechperson:</strong> <span id="fuehrung-modal-ansprechperson"></span></p>
+    <p><strong>Email:</strong> <span id="fuehrung-modal-email"></span></p>
+    <p><strong>Telefon:</strong> <span id="fuehrung-modal-telefon"></span></p>
+    <p><strong>Teilnehmer:</strong> <span id="fuehrung-modal-teilnehmer"></span></p>
+    <p><strong>Wunschtermin:</strong> <span id="fuehrung-modal-termin"></span></p>
+    <p><strong>Nachricht:</strong></p>
+    <p id="fuehrung-modal-nachricht"></p>
+    <p><strong>Erstellt am:</strong> <span id="fuehrung-modal-date"></span></p>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const modal = document.getElementById("fuehrung-detail-modal");
+  const closeBtn = modal.querySelector(".close-fuehrung-modal");
+
+  document.querySelectorAll(".fuehrung-row").forEach(row => {
+    row.addEventListener("click", () => {
+      document.getElementById("fuehrung-modal-einrichtung").textContent = row.dataset.einrichtung;
+      document.getElementById("fuehrung-modal-ansprechperson").textContent = row.dataset.ansprechperson;
+      document.getElementById("fuehrung-modal-email").textContent = row.dataset.email;
+      document.getElementById("fuehrung-modal-telefon").textContent = row.dataset.telefon;
+      document.getElementById("fuehrung-modal-teilnehmer").textContent = row.dataset.teilnehmer;
+      document.getElementById("fuehrung-modal-termin").textContent = row.dataset.termin;
+      document.getElementById("fuehrung-modal-nachricht").textContent = row.dataset.nachricht;
+      document.getElementById("fuehrung-modal-date").textContent = row.dataset.date;
+      modal.style.display = "flex";
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target == modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+</script>
+{% endblock %}

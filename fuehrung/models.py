@@ -23,6 +23,8 @@ class Moscheefuehrung(models.Model):
     uhrzeit = models.TimeField("Uhrzeit", blank=True, null=True)
     nachricht = models.TextField("Nachricht / Anliegen", blank=True)
     erstellt_am = models.DateTimeField(auto_now_add=True)
+    bearbeitet = models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"{self.einrichtung} – {self.wunschtermin}"

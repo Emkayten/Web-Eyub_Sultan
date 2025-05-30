@@ -38,7 +38,7 @@
                     <li><a href="/downloads">Downloads</a></li>
                     <li><a href="/impressum">Impressum</a></li>
                     {% if user.is_authenticated and is_admin %}
-                      <li><a href="/adminpanel/">Adminpanel</a></li>
+                      <li><a href="{% url 'admin_benutzerverwaltung' %}">Adminpanel</a></li>
                     {% endif %}
                     {% if user.is_authenticated %}
                       <li><a href="/accounts/logout/">Logout</a></li>

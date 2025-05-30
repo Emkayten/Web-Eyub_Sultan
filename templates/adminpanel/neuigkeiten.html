@@ -1,0 +1,56 @@
+{% extends 'adminpanel/adminpanel_base.html' %}
+
+{% block admin_content %}
+<h1>Neuigkeiten Verwaltung</h1>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<table>
+  <tr>
+    <th>Titel</th>
+    <th>Inhalt</th>
+    <th>Bild</th>
+    <th>Aktionen</th>
+  </tr>
+  {% for neuigkeit in neuigkeiten %}
+  <tr>
+    <td>{{ neuigkeit.titel }}</td>
+    <td>{{ neuigkeit.inhalt|truncatewords:10 }}</td>
+    <td>
+      {% if neuigkeit.bild %}
+        <a href="{{ neuigkeit.bild.url }}" target="_blank">Ansehen</a>
+      {% else %}
+        Kein Bild
+      {% endif %}
+    </td>
+    <td>
+      <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="delete_id" value="{{ neuigkeit.id }}">
+        <button type="submit" class="btn btn-secondary">Löschen</button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="4">Keine Neuigkeiten vorhanden.</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Neue Neuigkeit hinzufügen</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label>Titel:</label>
+  <input type="text" name="titel" required>
+  <label>Inhalt:</label>
+  <textarea name="inhalt" rows="4" required></textarea>
+  <label>Bild (optional):</label>
+  <input type="file" name="bild">
+  <button type="submit" class="btn btn-primary">Hinzufügen</button>
+</form>
+{% endblock %}

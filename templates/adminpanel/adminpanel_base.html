@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="adminpanel-container">
+  <aside class="admin-sidebar">
+    <h2>Adminpanel</h2>
+    <nav>
+      <ul>
+        <li><a href="{% url 'admin_benutzerverwaltung' %}">Benutzerverwaltung</a></li>
+        <li><a href="{% url 'admin_kontakt' %}">Kontakt</a></li>
+        <li><a href="{% url 'admin_fuehrung' %}">Moscheeführungen</a></li>
+        <li><a href="{% url 'admin_mitgliedsantrag' %}">Mitgleiderantrag</a></li>
+        <li><a href="{% url 'admin_vorstand' %}">Vorstand</a></li>
+        <li><a href="{% url 'admin_neuigkeiten' %}">Neuigkeiten</a></li>
+        <li><a href="{% url 'admin_downloads' %}">Downloads</a></li>
+        <!-- weitere Links, später einfach hier hinzufügen -->
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="admin-main">
+    {% block admin_content %}
+    <!-- Hier wird der dynamische Inhalt jeder Unterseite reingerendert -->
+    {% endblock %}
+  </main>
+</div>
+{% endblock %}
