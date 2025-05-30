@@ -10,6 +10,7 @@ urlpatterns = [
     path('gemeinde/', include('gemeinde.urls')),
     path('mitgliedsantrag/', include('mitgliedsantrag.urls')),
     path('downloads/', include('downloads.urls')),
+    path('accounts/', include('accounts.urls')),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

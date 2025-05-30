@@ -37,7 +37,14 @@
                     <li><a href="/kontakt">Kontakt</a></li>
                     <li><a href="/downloads">Downloads</a></li>
                     <li><a href="/impressum">Impressum</a></li>
-                    <li><a href="/accounts/login/">Login</a></li>
+                    {% if user.is_authenticated and is_admin %}
+                      <li><a href="/adminpanel/">Adminpanel</a></li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                      <li><a href="/accounts/logout/">Logout</a></li>
+                    {% else %}
+                      <li><a href="/accounts/login/">Login</a></li>
+                    {% endif %}
                 </ul>
                 <div class="language-switcher">
                     <a href="#">DE</a> | 

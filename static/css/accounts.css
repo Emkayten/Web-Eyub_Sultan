@@ -1,0 +1,70 @@
+/* Container-Styling für das Login */
+.login-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff; /* Weißer Hintergrund für Klarheit */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.login-container h1 {
+  color: #5c3d2e; /* Sanfter Braunton */
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d8c9b6; /* Heller Beigeton für harmonischen Look */
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+  outline: none;
+  border-color: #0d6efd; /* Akzentfarbe beim Fokus */
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.1);
+}
+
+.login-container button[type="submit"] {
+  padding: 0.75rem 1rem;
+  background-color: #0d6efd; /* Akzentfarbe */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.login-container button[type="submit"]:hover {
+  background-color: #084298; /* dunkleres Blau beim Hover */
+}
+
+.messages {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-left: 3px solid #dc3545; /* roter Rand für Fehler */
+  background-color: #f8d7da; /* helles Rot für Fehler */
+  color: #842029;
+  border-radius: 4px;
+  list-style: none;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+}
