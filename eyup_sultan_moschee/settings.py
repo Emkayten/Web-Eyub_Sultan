@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'fuehrung',
     'gemeinde',
     'mitgliedsantrag',
+    'downloads',
 
 ]
 

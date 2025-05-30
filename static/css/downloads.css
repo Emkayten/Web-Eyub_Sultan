@@ -1,4 +1,75 @@
 .downloads-container {
-    padding: 20px;
-    font-size: 1.2em;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff; /* Weißer Container für klare Lesbarkeit */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.downloads-container h1 {
+
+  color: #5c3d2e; /* Sanfter Braunton, wie in Header und Footer */
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.statischer-bereich,
+.dynamische-downloads {
+  margin-top: 2rem;
+}
+
+.statischer-bereich h2,
+.dynamische-downloads h2 {
+  color: #5c3d2e;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #d8c9b6;
+  padding-bottom: 0.25rem;
+}
+
+.statischer-bereich h3 {
+  color: #5c3d2e;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.statischer-bereich p,
+.dynamische-downloads li {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.statischer-bereich a,
+.dynamische-downloads li a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.statischer-bereich a:hover,
+.dynamische-downloads li a:hover {
+  text-decoration: underline;
+}
+
+.dynamische-downloads ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.dynamische-downloads li {
+  background: #f9f9f9;
+  border: 1px solid #e3d9c6;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .downloads-container {
+    padding: 1rem;
+  }
 }

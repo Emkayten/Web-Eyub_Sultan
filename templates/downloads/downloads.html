@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/downloads.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="downloads-container">
+  <h1>Downloads</h1>
+
+  <section class="statischer-bereich">
+    <h2>Cenaze Fonlar</h2>
+    <p>
+      Camimizde mevcuttur.<br>
+      <a href="https://zsu-ev.eu/nasiluyeolunur.html#">https://zsu-ev.eu/nasiluyeolunur.html#</a><br>
+      Online Başvuru: <a href="https://cenazefonukayit.eu/">https://cenazefonukayit.eu/</a>
+    </p>
+
+    <h3>Önemli!</h3>
+    <p>
+      Almanya cenaze tek ücretsiz istediği yere götürülüp, mezar yerin und defin masrafları Aile karşılıyor!<br>
+      <a href="https://zsu-ev.eu/cenazefonu.html">https://zsu-ev.eu/cenazefonu.html</a>
+    </p>
+
+    <h3>Tedbir vekaletnamesi</h3>
+    <p>
+      <a href="https://www.bmj.de/SharedDocs/Downloads/DE/Formular/Vorsorgevollmacht_deutsch_tuerkisch.html" target="_blank">
+        Vorsorgevollmacht herunterladen
+      </a>
+    </p>
+  </section>
+
+  <section class="dynamische-downloads">
+    <h2>Dynamische Downloads</h2>
+    <ul>
+      {% for d in downloads %}
+        <li>
+          {{ d.beschreibung }} –
+          <a href="{{ d.pdf.url }}" target="_blank">Herunterladen</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>
+{% endblock %}
