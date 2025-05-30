@@ -252,3 +252,25 @@
 .modal-content form button:hover {
   background-color: #084298;
 }
+
+@media (max-width: 768px) {
+  .admin-main form {
+    grid-template-columns: 1fr; /* nur 1 Spalte */
+  }
+
+  .admin-main form .form-row {
+    flex-direction: column;
+  }
+
+  .admin-main form .form-row input[type="text"],
+  .admin-main form .form-row select {
+    width: 100%;
+  }
+
+  .admin-main form button {
+    width: 100%;
+  }
+  .admin-main {
+    overflow-x: auto;
+  }
+}
