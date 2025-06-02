@@ -27,6 +27,9 @@
     <div class="mitgliedsantrag-field">
       {{ form.mobilnummer.label_tag }}
       {{ form.mobilnummer }}
+      {% if form.mobilnummer.errors %}
+        <div class="form-error">{{ form.mobilnummer.errors|striptags }}</div>
+      {% endif %}
     </div>
 
     <div class="mitgliedsantrag-field checkbox-field">
@@ -42,11 +45,17 @@
     <div class="mitgliedsantrag-field">
       {{ form.iban.label_tag }}
       {{ form.iban }}
+      {% if form.iban.errors %}
+        <div class="form-error">{{ form.iban.errors|striptags }}</div>
+      {% endif %}
     </div>
 
     <div class="mitgliedsantrag-field">
       {{ form.bic.label_tag }}
       {{ form.bic }}
+      {% if form.bic.errors %}
+        <div class="form-error">{{ form.bic.errors|striptags }}</div>
+      {% endif %}
     </div>
 
     <div class="mitgliedsantrag-field">

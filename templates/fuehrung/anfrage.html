@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/fuehrung.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="fuehrung-form-container">
     <h2 class="form-heading">Moscheeführung – Anmeldung</h2>
@@ -27,4 +31,23 @@
         </div>
     </form>
 </div>
+
+<!-- Flatpickr CSS & JS einbinden -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<!-- Flatpickr für Uhrzeit aktivieren -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    flatpickr("input[type='time']", {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "H:i",
+      time_24hr: true,
+      minuteIncrement: 15,
+      minTime: "09:00",
+      maxTime: "20:00"
+    });
+  });
+</script>
 {% endblock %}

@@ -3,6 +3,7 @@
 
 {% block extra_head %}
   <link rel="stylesheet" href="{% static 'css/startseite.css' %}">
+  <link rel="stylesheet" href="{% static 'css/kalender.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -97,6 +98,29 @@
 </section>
 
 
+<section class="kalender-container">
+  <h2>Kalender – Diese Woche</h2>
+
+  
+
+  <div class="kalender-grid">
+    {% for datum in wochentage %}
+      <div class="tag">
+        <strong>{{ datum|date:"l" }}<br>{{ datum|date:"d.m.Y" }}</strong>
+        {% for event in events %}
+          {% if event.date == datum %}
+            <div class="event">
+              <strong>{{ event.title }}</strong>
+              {% if event.start_time %}{{ event.start_time|time:"H:i" }}{% endif %}
+              {% if event.end_time %} – {{ event.end_time|time:"H:i" }}{% endif %}
+              {% if event.description %}<p>{{ event.description }}</p>{% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
 
 
 

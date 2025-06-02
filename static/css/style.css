@@ -872,11 +872,7 @@ body {
   color: #555;
 }
 
-.fuehrung-form-container form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
+
 
 .form-field {
   display: flex;
@@ -926,35 +922,6 @@ body {
   background-color: #926840;
 }
 
-@media (max-width: 768px) {
-  .fuehrung-form-container {
-      margin-top: 6rem;
-      padding: 1.5rem;
-  }
-
-  .form-heading {
-      font-size: 1.5rem;
-  }
-
-  form {
-      display: block;
-  }
-
-  .form-field {
-      width: 100%;
-      margin-bottom: 1.5rem;
-  }
-
-  .form-button-wrapper {
-      text-align: center;
-  }
-
-  .button-primary {
-      width: 100%;
-      font-size: 1rem;
-      padding: 0.75rem;
-  }
-}
 
 .kontakt-wrapper {
   max-width: 800px;

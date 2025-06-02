@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'downloads',
     'accounts',
     'adminpanel',
+    'kalender',
 
 ]
 

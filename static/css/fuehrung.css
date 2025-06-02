@@ -1,0 +1,117 @@
+.fuehrung-form-container {
+  max-width: 850px;
+  margin: 6rem auto 1rem auto;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.form-heading {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #5a3c1e;
+}
+
+.form-description {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-field textarea {
+  min-height: 100px;
+  resize: vertical;
+  grid-column: span 2;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+.form-button-wrapper {
+  grid-column: span 2;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.button-primary {
+  padding: 0.75rem 2rem;
+  background-color: #a97b4c;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.button-primary:hover {
+  background-color: #926840;
+}
+
+@media (max-width: 768px) {
+  .fuehrung-form-container form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-heading {
+      font-size: 1.5rem;
+  }
+
+  form {
+      display: block;
+  }
+
+  .form-field {
+    width: 100%;
+  }
+
+  .form-button-wrapper {
+    width: 100%;
+  }
+
+  .button-primary {
+    width: 100%;
+  }
+}
+
+/* Danke-Seite */
+.danke-seite {
+  max-width: 600px;
+  margin: 6rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.danke-seite h2 {
+  color: #a67c52;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.danke-seite p {
+  color: #5c4433;
+  font-size: 1.1rem;
+}

@@ -1,0 +1,58 @@
+{% extends 'adminpanel/adminpanel_base.html' %}
+
+{% block admin_content %}
+<h1>Kalender Verwaltung</h1>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<table>
+  <tr>
+    <th>Titel</th>
+    <th>Datum</th>
+    <th>Startzeit</th>
+    <th>Endzeit</th>
+    <th>Beschreibung</th>
+    <th>Aktionen</th>
+  </tr>
+  {% for e in events %}
+  <tr>
+    <td>{{ e.title }}</td>
+    <td>{{ e.date }}</td>
+    <td>{{ e.start_time|default:"-" }}</td>
+    <td>{{ e.end_time|default:"-" }}</td>
+    <td>{{ e.description|default:"-" }}</td>
+    <td>
+      <form method="post" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="delete_id" value="{{ e.id }}">
+        <button type="submit" class="btn btn-secondary">Löschen</button>
+      </form>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">Keine Einträge vorhanden.</td></tr>
+  {% endfor %}
+</table>
+
+<h2>Neuen Kalendereintrag hinzufügen</h2>
+<form method="post">
+  {% csrf_token %}
+  <label>Titel:</label>
+  <input type="text" name="title" required>
+  <label>Datum:</label>
+  <input type="date" name="date" required>
+  <label>Startzeit:</label>
+  <input type="time" name="start_time">
+  <label>Endzeit:</label>
+  <input type="time" name="end_time">
+  <label>Beschreibung:</label>
+  <textarea name="description" rows="4"></textarea>
+  <button type="submit" class="btn btn-primary">Hinzufügen</button>
+</form>
+{% endblock %}

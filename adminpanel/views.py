@@ -8,6 +8,9 @@ from hauptseite.models import Neuigkeit, KontaktNachricht
 from fuehrung.models import Moscheefuehrung
 from mitgliedsantrag.models import Mitgliedsantrag
 from gemeinde.models import VorstandMitglied
+from kalender.models import Event
+from django.utils import timezone
+from datetime import timedelta
 
 @login_required
 def admin_dashboard(request):
@@ -227,4 +230,43 @@ def vorstand_verwaltung(request):
 
     return render(request, 'adminpanel/vorstand.html', {
         'mitglieder': mitglieder
+    })
+
+@login_required
+def kalender_adminpanel(request):
+    if not request.user.userprofile.roles.filter(name='admin').exists():
+        return render(request, '403.html')
+
+    events = Event.objects.all().order_by('-date', 'start_time')
+
+    if request.method == 'POST':
+        if 'title' in request.POST:
+            title = request.POST.get('title')
+            date = request.POST.get('date')
+            start_time = request.POST.get('start_time') or None
+            end_time = request.POST.get('end_time') or None
+            description = request.POST.get('description')
+
+            Event.objects.create(
+                title=title,
+                date=date,
+                start_time=start_time,
+                end_time=end_time,
+                description=description
+            )
+            messages.success(request, "Neuer Kalendereintrag hinzugefügt!")
+            return redirect('admin_kalender')
+
+        delete_id = request.POST.get('delete_id')
+        if delete_id:
+            try:
+                event = Event.objects.get(id=delete_id)
+                event.delete()
+                messages.success(request, "Kalendereintrag gelöscht!")
+            except Event.DoesNotExist:
+                messages.error(request, "Kalendereintrag nicht gefunden!")
+            return redirect('admin_kalender')
+
+    return render(request, 'adminpanel/kalender.html', {
+        'events': events
     })

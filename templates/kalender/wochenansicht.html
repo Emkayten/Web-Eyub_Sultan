@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/kalender.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="kalender-container">
+  <h1>Wochenansicht: {{ wochenstart|date:"j. F Y" }} – {{ wochenende|date:"j. F Y" }}</h1>
+
+  <div class="wochen-navigation">
+    <a href="?start={{ prev_week|date:'Y-m-d' }}" class="button">← Vorherige Woche</a>
+    <a href="/kalender/" class="button">Aktuelle Woche</a>
+    <a href="?start={{ next_week|date:'Y-m-d' }}" class="button">Nächste Woche →</a>
+  </div>
+
+  <div class="kalender-grid">
+    {% for datum in wochentage %}
+      <div class="tag">
+        <strong>{{ datum|date:"l" }}<br>{{ datum|date:"d.m.Y" }}</strong>
+        {% for event in events %}
+          {% if event.date == datum %}
+            <div class="event">
+              <strong>{{ event.title }}</strong>
+              {% if event.start_time %}{{ event.start_time|time:"H:i" }}{% endif %}
+              {% if event.end_time %} – {{ event.end_time|time:"H:i" }}{% endif %}
+              {% if event.description %}<p>{{ event.description }}</p>{% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

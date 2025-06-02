@@ -12,6 +12,7 @@ urlpatterns = [
     path('downloads/', include('downloads.urls')),
     path('accounts/', include('accounts.urls')),
     path('adminpanel/', include('adminpanel.urls')),
+    path("kalender/", include("kalender.urls")),
 
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

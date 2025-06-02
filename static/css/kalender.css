@@ -1,0 +1,140 @@
+.kalender-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+.kalender-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tag {
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  border-radius: 5px;
+  padding: 8px;
+  min-height: 120px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.tag strong {
+  font-size: 0.95em;
+  color: #333;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.event {
+  background-color: #e6f2ff;
+  margin-top: 5px;
+  padding: 4px 6px;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: #004080;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.event strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.event p {
+  margin: 0;
+  font-size: 0.8em;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .kalender-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.wochen-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.wochen-navigation .button {
+  background-color: #a67c52;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.wochen-navigation .button:hover {
+  background-color: #8a643f;
+}
+
+.kalender-container {
+  margin-top: 3rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 2rem;
+}
+
+.kalender-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #a67c52;
+  text-align: center;
+}
+
+.kalender-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.kalender-navigation .button {
+  background-color: #a67c52;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.kalender-navigation .button:hover {
+  background-color: #8a643f;
+}
+
+.kalender-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.tag {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.tag strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #333;
+}
+
+.event {
+  background: #e6f2ff;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #004080;
+}
