@@ -1,4 +1,17 @@
 .impressum-container {
-    padding: 20px;
-    font-size: 1.2em;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff; /* Weißer Container für klare Lesbarkeit */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    line-height: 175%;
+}
+
+.impressum-container h1 {
+    color: #5c3d2e; /* Sanfter Braunton, wie in Header und Footer */
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    margin-top: 3rem;
 }
